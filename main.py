@@ -42,7 +42,7 @@ AGREEMENTS = {"ага",
               "проблем",
               "разумеется", }
 
-stockfish = Stockfish("stockfish_15.1_win_x64_avx2/stockfish_15.1_win_x64_avx2/stockfish-windows-2022-x86-64-avx2.exe")
+stockfish = Stockfish("stockfish_15.1_linux_x64/stockfish_15.1_linux_x64/stockfish-ubuntu-20.04-x86-64")
 
 yandex = YandexImages()
 yandex.set_auth_token(token='y0_AgAAAABATDIjAAT7owAAAADbD7z3MNhcn4MUSsmMxjnsoXitscYlX6U')

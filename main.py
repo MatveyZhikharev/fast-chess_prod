@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import json  # работа с json
 from PIL import Image  # генерация изображений
 from stockfish import Stockfish  # работа с движком

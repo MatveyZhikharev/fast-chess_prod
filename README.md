@@ -29,3 +29,4 @@ ngrok http 5000
 
 нажмите сохранить и перейдите в раздел "Тестирование" и пользуйтесь!
 
+![Пример игры](https://github.com/MatveyZhikharev/fast-chess_prod/assets/65722269/41db79a5-01c0-4320-aafd-394221bb3175)

@@ -1,15 +1,11 @@
 import json
-import pprint
-import time
 
 import requests
-from requests import HTTPError
 
 
 class YandexImages:
     def __init__(self):
         self.SESSION = requests.Session()
-        # self.SESSION.headers.update(AUTH_HEADER)
 
         self.API_VERSION = 'v1'
         self.API_BASE_URL = 'https://dialogs.yandex.net/api'

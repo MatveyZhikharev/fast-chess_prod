@@ -1,9 +1,10 @@
-<<<<<<< HEAD
 import json  # работа с json
 from PIL import Image  # генерация изображений
 from stockfish import Stockfish  # работа с движком
 from flask import Flask, request  # для принятия и отправки запросов
 from YandexImages import YandexImages  # загрузка изображений
+
+from REFERENCES import *
 
 IMAGES = {"r": "images/BlackRook.png",
           "n": "images/BlackKnight.png",
@@ -43,11 +44,11 @@ AGREEMENTS = {"ага",
               "проблем",
               "разумеется", }
 
-stockfish = Stockfish("stockfish_15.1_linux_x64/stockfish_15.1_linux_x64/stockfish-ubuntu-20.04-x86-64")
+stockfish = Stockfish("stockfish_15.1_win_x64_avx2/stockfish_15.1_win_x64_avx2/stockfish-windows-2022-x86-64-avx2.exe")
 
 yandex = YandexImages()
-yandex.set_auth_token(token='y0_AgAAAABATDIjAAT7owAAAADbD7z3MNhcn4MUSsmMxjnsoXitscYlX6U')
-yandex.skills = '68ef74c3-8363-4e41-bea3-ff505edf0624'
+yandex.set_auth_token(token=TOKEN)
+yandex.skills = SKILL
 
 app = Flask(__name__)
 
@@ -118,13 +119,9 @@ def handler():  # главная функция
         data = json.load(json_file)
     input_json = request.get_json()
     msg = input_json["request"]["command"]
-    # print(input_json)
-    # print(msg)
     user_id = input_json["session"]["user"]["user_id"]
     if "правила" in msg:
         return return_msg(RULES)
-    # if msg == "привет мир":
-    #    return return_msg("Здравствуйте! Это мы.")
     user = data.get(user_id, {})
     if not user:
         user["last_command"] = "start"
@@ -186,15 +183,13 @@ def handler():  # главная функция
     if "подсказ" in msg:
         return return_msg(stockfish.get_best_move())
     if step := return_step(msg):
-        # print(stockfish.get_board_visual())
         if stockfish.is_move_correct(step):
-            # print(1)
             steps = user["steps"]
             stockfish.make_moves_from_current_position([step])
             stockfish.make_moves_from_current_position([m := stockfish.get_best_move()])
             steps.extend([step, m])
             save()
-            # print(0)
+
             return return_msg(card=make_card(print_image(), title=m))
         print(stockfish.get_board_visual())
         return return_msg("Ход некоректен или его не возможно совершить")
@@ -213,7 +208,6 @@ def make_board():  # возвращает список фигур в форма�
 
 
 def print_image():  # сохраняет доску с фигурами
-    # return "1030494/6600efc6de373551f6c7"
     board = make_board()
     im = Image.open("images/desk2.png")
     for row in range(8):
